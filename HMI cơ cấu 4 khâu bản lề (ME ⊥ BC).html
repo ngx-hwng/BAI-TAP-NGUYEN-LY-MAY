@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HMI cơ cấu 4 khâu bản lề (ME ⊥ BC)</title>
+<style>
+:root{--bg:#e9eee9;--card:#fbfcfa;--fg:#16263a;--mut:#56657a;--line:#b9c4cf;--bt:#16263a;--btf:#fbfcfa;--l2:#c2410c;--l3:#1d4ed8;--l4:#15803d;--pt:#7c3aed;color-scheme:light dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e151c;--card:#16202a;--fg:#dfe7ee;--mut:#98a7b8;--line:#2d3b4a;--bt:#dfe7ee;--btf:#0e151c;--l2:#ff9a5c;--l3:#6ea3ff;--l4:#5fd47a;--pt:#b79cff}}
+:root[data-theme="dark"]{--bg:#0e151c;--card:#16202a;--fg:#dfe7ee;--mut:#98a7b8;--line:#2d3b4a;--bt:#dfe7ee;--btf:#0e151c;--l2:#ff9a5c;--l3:#6ea3ff;--l4:#5fd47a;--pt:#b79cff}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 system-ui,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:20px 14px 40px}
+h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0 0 10px}
+h1{font-size:25px;line-height:1.25}h2{font-size:19px;margin-top:18px}
+.mut{color:var(--mut);margin:0 0 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));border:2px solid var(--fg);background:var(--card)}
+.grid>section{padding:16px 18px}.grid>section+section{border-left:2px solid var(--fg)}
+@media(max-width:660px){.grid>section+section{border-left:0;border-top:2px solid var(--fg)}}
+.grid h2{margin-top:0;padding-bottom:6px;border-bottom:1px solid var(--line)}
+label{display:grid;grid-template-columns:96px 1fr;gap:8px;align-items:center;margin:7px 0}
+.f{display:flex;gap:6px;align-items:center;color:var(--mut)}
+input,select{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:3px;padding:6px 8px;min-width:0;width:100%;box-sizing:border-box}
+input:focus-visible,select:focus-visible,.btn:focus-visible{outline:3px solid var(--l3);outline-offset:2px}
+.btn{display:block;width:100%;background:var(--bt);color:var(--btf);border:0;border-radius:3px;padding:13px 14px;font:600 15px system-ui,sans-serif;text-align:left;cursor:pointer;margin-top:10px}
+.btn.sm{display:inline-block;width:auto;padding:7px 12px;font-size:14px;margin:0 6px 8px 0}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.err{border-left:4px solid var(--l2);padding:8px 12px;background:var(--bg);margin-bottom:10px}
+.panel{background:var(--card);border:2px solid var(--fg);padding:14px 18px;margin-top:14px}
+.panel h2:first-child{margin-top:0}
+.sc{overflow-x:auto;margin:8px 0 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:center;white-space:nowrap}
+th{background:var(--bg);font-weight:600}
+canvas{width:100%;display:block}
+ol{padding-left:22px}li{margin:5px 0}
+.res{border-left:4px solid var(--l4);padding:6px 12px;background:var(--bg);font-weight:600}
+:root{--grid:rgba(22,38,58,.07)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--grid:rgba(223,231,238,.06)}}
+:root[data-theme="dark"]{--grid:rgba(223,231,238,.06)}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px}
+.wrap{padding-top:28px}
+h1{font-size:clamp(26px,4.2vw,38px);letter-spacing:-.01em}
+#home>h1{border-bottom:3px double var(--fg);padding-bottom:10px}
+.grid{margin:10px 6px;border-radius:6px;box-shadow:0 0 0 5px var(--bg),0 0 0 6px var(--fg),0 22px 40px -26px rgba(0,0,0,.55)}
+.grid h2{font-size:22px}
+h3{font:600 13px Georgia,serif;color:var(--mut);margin:18px 0 4px;padding-bottom:3px;border-bottom:1px dashed var(--line)}
+input,select{background:var(--card);border-radius:6px;padding:8px 10px;transition:border-color .15s}
+input:hover,select:hover{border-color:var(--mut)}
+.kps{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.kp{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border-left:5px solid var(--c);background:var(--bg);border-radius:0 8px 8px 0}
+.kp b{font:700 17px Georgia,serif;color:var(--c)}.kp .v{font:600 22px system-ui,sans-serif}
+.kp small{font-size:13px;color:var(--mut);font-weight:400}.kp span:last-child{font-size:13px;color:var(--mut)}
+.nb{display:flex;flex-direction:column;gap:2px;border-radius:8px;padding:14px 16px;transition:transform .15s,box-shadow .15s}
+.nb b{font-size:16px}.nb span{font-weight:400;font-size:13px;opacity:.8}
+.nb:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 18px -12px rgba(0,0,0,.7)}
+.panel{border:1px solid var(--line);border-top:4px solid var(--fg);border-radius:6px;box-shadow:0 16px 30px -24px rgba(0,0,0,.55)}
+th{background:var(--fg);color:var(--card);border-color:var(--fg)}
+tr:nth-child(even) td{background:var(--bg)}td:first-child{font-weight:600}
+.bar3{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:8px}.bar3 h2{margin:0}
+#c3d{touch-action:none;cursor:grab;border-radius:6px;background:radial-gradient(circle at 50% 35%,var(--card),var(--bg))}
+#c3d:active{cursor:grabbing}
+.pg:not([hidden]){animation:in .28s ease-out}
+@keyframes in{from{opacity:0;transform:translateY(8px)}}
+@media (prefers-reduced-motion:reduce){.pg:not([hidden]){animation:none}.nb{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<main id="home" class="pg">
+<h1>HMI phân tích cơ cấu phẳng 4 khâu bản lề</h1>
+<p class="mut">Khâu 2 (AB) là khâu dẫn. ME vuông góc BC và gắn cứng với khâu 3. Gốc toạ độ đặt tại A, trục x dọc theo AD.</p>
+<div class="grid">
+<section><h2>INPUT</h2>
+<button class="btn sm" onclick="preset(1)">Phương án 1</button><button class="btn sm" onclick="preset(2)">Phương án 2</button>
+<div id="form"></div></section>
+<section><h2>OUTPUT</h2>
+<div id="err" class="err" hidden>Số liệu không hợp lệ hoặc cơ cấu không lắp ráp được. Kiểm tra điều kiện |l<sub>BC</sub> − l<sub>CD</sub>| ≤ |BD| ≤ l<sub>BC</sub> + l<sub>CD</sub> và 0 ≤ l<sub>BM</sub> ≤ l<sub>BC</sub>.</div>
+<div id="sum"></div>
+<button class="btn nb" onclick="go('phan1')"><b>Phần 1</b><span>Lược đồ 2D, mô hình 3D, cấu trúc và xếp loại cơ cấu</span></button>
+<button class="btn nb" onclick="go('phan23')"><b>Phần 2 và 3</b><span>Vận tốc, gia tốc và các họa đồ</span></button>
+</section>
+</div>
+</main>
+
+<main id="p1" class="pg" hidden>
+<button class="btn sm" onclick="go('')">Quay lại INPUT và OUTPUT</button>
+<h1>Phần 1: Lược đồ cơ cấu, phân tích cấu trúc, xếp loại</h1>
+<div class="panel"><canvas id="c1"></canvas></div>
+<div class="panel"><div class="bar3"><h2>Mô hình 3D</h2><span><button class="btn sm" id="simb" onclick="sim3()">Chạy mô phỏng</button><button class="btn sm" onclick="reset3()">Đặt lại góc nhìn</button></span></div><canvas id="c3d"></canvas><p class="mut"><b id="ph"></b> Kéo để xoay, cuộn để phóng to hoặc thu nhỏ. Ba khâu động nằm ở ba lớp khác nhau để không va chạm: khâu 2 ở lớp dưới, khâu 3 ở giữa, khâu 4 ở trên.</p></div>
+<div class="panel" id="s1"></div>
+</main>
+
+<main id="p23" class="pg" hidden>
+<button class="btn sm" onclick="go('')">Quay lại INPUT và OUTPUT</button>
+<h1>Phần 2 và 3: Vận tốc và gia tốc</h1>
+<div class="panel"><h2>Phần 2: Vận tốc</h2><div id="t2"></div><canvas id="c2"></canvas></div>
+<div class="panel"><h2>Phần 3: Gia tốc</h2><div id="t3"></div><canvas id="c3"></canvas></div>
+</main>
+
+</div>
+<script>
+const $=i=>document.getElementById(i);
+const add=(a,b)=>[a[0]+b[0],a[1]+b[1]],sub=(a,b)=>[a[0]-b[0],a[1]-b[1]],mul=(a,k)=>[a[0]*k,a[1]*k],perp=a=>[-a[1],a[0]],len=a=>Math.hypot(a[0],a[1]);
+const f=(x,d=3)=>(Math.abs(x)<5e-10?0:x).toFixed(d);
+const dr=w=>Math.abs(w)<1e-9?'bằng 0':w>0?'ngược chiều kim đồng hồ ↺':'cùng chiều kim đồng hồ ↻';
+const ang=v=>f(Math.atan2(v[1],v[0])*180/Math.PI,2)+'°';
+const tb=(h,r)=>`<div class="sc"><table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${r.map(a=>`<tr>${a.map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</table></div>`;
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const col=()=>({fg:css('--fg'),mut:css('--mut'),l2:css('--l2'),l3:css('--l3'),l4:css('--l4'),pt:css('--pt'),bg:css('--card')});
+
+/* ---------- Form ---------- */
+const DIR='<option value="-1">cùng chiều kim đồng hồ</option><option value="1">ngược chiều kim đồng hồ</option>';
+const OP={dw:DIR,de:DIR,br:'<option value="1">C ở phía trên AD</option><option value="-1">C ở phía dưới AD</option>'};
+const F=[['L2','l<sub>AB</sub>','m'],['L3','l<sub>BC</sub>','m'],['BM','l<sub>BM</sub>','m'],['ME','l<sub>ME</sub>','m'],['L4','l<sub>CD</sub>','m'],['L1','l<sub>AD</sub>','m'],['phi','φ<sub>2</sub>','độ'],['w2','ω<sub>2</sub>','rad/s'],['dw','Chiều ω<sub>2</sub>','sel'],['e2','ε<sub>2</sub>','rad/s²'],['de','Chiều ε<sub>2</sub>','sel'],['br','Cách lắp','sel']];
+$('form').innerHTML=F.map(([k,l,u])=>`<label>${l}`+(u=='sel'?`<select id="${k}">${OP[k]}</select>`:`<span class="f"><input id="${k}" type="number" step="any">${u}</span>`)+'</label>').join('');
+const PA={1:{L2:5,L3:4.5,BM:2,ME:1,L4:6,L1:3,phi:10,w2:5,dw:-1,e2:10,de:-1,br:1},2:{L2:5,L3:4,BM:2.5,ME:1.5,L4:6,L1:3,phi:20,w2:5,dw:-1,e2:20,de:1,br:1}};
+function preset(n){for(const k in PA[n])$(k).value=PA[n][k];update()}
+
+/* ---------- Tính toán ---------- */
+function solve2(p,q,r){const d=-p[0]*q[1]+q[0]*p[1];if(Math.abs(d)<1e-10)return null;return[(-r[0]*q[1]+q[0]*r[1])/d,(p[0]*r[1]-r[0]*p[1])/d]}
+function calc(I){
+ for(const k in I)if(!isFinite(I[k]))return null;
+ if(I.L2<=0||I.L3<=0||I.L4<=0||I.L1<=0||I.BM<0||I.BM>I.L3)return null;
+ const r2=I.phi*Math.PI/180,B=[I.L2*Math.cos(r2),I.L2*Math.sin(r2)],D=[I.L1,0],BD=sub(D,B),d=len(BD);
+ if(d<1e-9||d>I.L3+I.L4||d<Math.abs(I.L3-I.L4))return null;
+ const a=(I.L3**2-I.L4**2+d*d)/(2*d),h=Math.sqrt(Math.max(0,I.L3**2-a*a)),P=add(B,mul(BD,a/d)),n=[-BD[1]/d,BD[0]/d];
+ const C1=add(P,mul(n,h)),C2=sub(P,mul(n,h)),C=(I.br>0?C1[1]>=C2[1]:C1[1]<=C2[1])?C1:C2;
+ const BC=sub(C,B),M=add(B,mul(BC,I.BM/I.L3)),E=add(M,mul([BC[1],-BC[0]],I.ME/I.L3));
+ const w2=I.dw*I.w2,e2=I.de*I.e2,pBC=perp(BC),pDC=perp(sub(C,D));
+ const vB=mul(perp(B),w2),w=solve2(pBC,pDC,mul(vB,-1));if(!w)return null;
+ const [w3,w4]=w,vC=mul(pDC,w4),vAt=Q=>add(vB,mul(perp(sub(Q,B)),w3));
+ const aB=sub(mul(perp(B),e2),mul(B,w2*w2)),anCB=mul(BC,-w3*w3),anCD=mul(sub(C,D),-w4*w4);
+ const e=solve2(pBC,pDC,sub(add(mul(aB,-1),mul(BC,w3*w3)),mul(sub(C,D),w4*w4)));
+ const [e3,e4]=e,aAt=Q=>add(sub(add(aB,mul(perp(sub(Q,B)),e3)),mul(sub(Q,B),w3*w3)),[0,0]);
+ const L=[I.L2,I.L3,I.L4,I.L1],s=Math.min(...L),l=Math.max(...L),pq=L.reduce((x,y)=>x+y)-s-l,eq=Math.abs(s+l-pq)<1e-9;
+ const gt=(s+l>pq+1e-9?'Không thỏa Grashof: cơ cấu hai cần lắc':['Tay quay – cần lắc','Hai cần lắc','Tay quay – cần lắc','Hai tay quay'][L.indexOf(s)])+(eq?' (trường hợp biên s + l = p + q)':'');
+ return{I,B,C,D,M,E,d,s,l,pq,eq,gt,w3,w4,e3,e4,vB,vC,vM:vAt(M),vE:vAt(E),aB,aC:add(aB,add(anCB,mul(pBC,e3))),aM:aAt(M),aE:aAt(E),anCB,atCB:mul(pBC,e3),anCD,atCD:mul(pDC,e4)};
+}
+
+/* ---------- Vẽ ---------- */
+function cv(id,h){const c=$(id),w=c.parentElement.clientWidth-36||600,r=devicePixelRatio||1;c.width=w*r;c.height=h*r;c.style.height=h+'px';const g=c.getContext('2d');g.scale(r,r);return[g,w,h]}
+function fit(P,w,h,m){const xs=P.map(p=>p[0]),ys=P.map(p=>p[1]),x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys),s=Math.min((w-2*m)/Math.max(x1-x0,1e-9),(h-2*m)/Math.max(y1-y0,1e-9)),ox=(w-s*(x1-x0))/2,oy=(h-s*(y1-y0))/2;return p=>[ox+s*(p[0]-x0),h-oy-s*(p[1]-y0)]}
+function ln(g,a,b,c,wd,dash){g.beginPath();g.setLineDash(dash||[]);g.strokeStyle=c;g.lineWidth=wd;g.moveTo(a[0],a[1]);g.lineTo(b[0],b[1]);g.stroke();g.setLineDash([])}
+function arw(g,a,b,c,dash){ln(g,a,b,c,2,dash);const t=Math.atan2(b[1]-a[1],b[0]-a[0]);if(Math.hypot(b[0]-a[0],b[1]-a[1])<6)return;g.beginPath();g.fillStyle=c;g.moveTo(b[0],b[1]);g.lineTo(b[0]-10*Math.cos(t-.4),b[1]-10*Math.sin(t-.4));g.lineTo(b[0]-10*Math.cos(t+.4),b[1]-10*Math.sin(t+.4));g.fill()}
+function pt(g,p,n,c,dx,dy){g.beginPath();g.fillStyle=c;g.arc(p[0],p[1],4,0,7);g.fill();g.font='600 14px system-ui,sans-serif';g.fillText(n,p[0]+(dx??8),p[1]+(dy??-8))}
+function drawMech(){
+ const k=col(),{B,C,D,M,E,I}=R,[g,w,h]=cv('c1',380),T=fit([[0,0],D,B,C,M,E],w,h,55);
+ const A=T([0,0]),b=T(B),c=T(C),d=T(D),m=T(M),e=T(E);
+ [A,d].forEach(p=>{ln(g,p,[p[0]-14,p[1]+12],k.fg,2);ln(g,p,[p[0]+14,p[1]+12],k.fg,2);ln(g,[p[0]-18,p[1]+12],[p[0]+18,p[1]+12],k.fg,2);for(let i=-18;i<18;i+=9)ln(g,[p[0]+i,p[1]+12],[p[0]+i-6,p[1]+19],k.fg,1.5)});
+ ln(g,A,d,k.mut,1.5,[8,5]);ln(g,A,b,k.l2,5);ln(g,b,c,k.l3,5);ln(g,d,c,k.l4,5);ln(g,m,e,k.pt,4);
+ g.beginPath();g.strokeStyle=k.mut;g.lineWidth=1.5;g.arc(A[0],A[1],30,0,-I.phi*Math.PI/180,true);g.stroke();
+ g.fillStyle=k.fg;g.font='italic 14px Georgia,serif';g.fillText('φ2',A[0]+34,A[1]-6);
+ [[A,b,'2'],[b,c,'3'],[d,c,'4'],[A,d,'1']].forEach(([p,q,n],i)=>g.fillText(n,(p[0]+q[0])/2-(i<3?16:0),(p[1]+q[1])/2+(i<3?-6:30)));
+ [[A,'A'],[b,'B'],[c,'C'],[d,'D']].forEach(([p,n])=>{pt(g,p,n,k.fg,-4,-12);g.beginPath();g.fillStyle=k.bg;g.arc(p[0],p[1],2.5,0,7);g.fill()});
+ pt(g,m,'M (S3)',k.fg);pt(g,e,'E',k.fg);
+}
+function poly(id,S,P){const[g,w,h]=cv(id,360),T=fit([...S.flatMap(s=>[s[0],s[1]]),...P.map(p=>p[0])],w,h,46);S.forEach(([a,b,c,d])=>arw(g,T(a),T(b),c,d?[6,4]:null));P.forEach(([p,n,c])=>pt(g,T(p),n,c))}
+
+/* ---------- Các trang ---------- */
+let R=null,cur='';
+const vrow=(n,v)=>[n,f(v[0]),f(v[1]),f(len(v)),ang(v)];
+function sumHTML(){return tb(['Đại lượng','Giá trị'],[['Bậc tự do W','1'],['Xếp loại (Atxua)','Cơ cấu loại 2'],['Dạng cơ cấu',R.gt],['ω<sub>3</sub>',f(Math.abs(R.w3))+' rad/s, '+dr(R.w3)],['ω<sub>4</sub>',f(Math.abs(R.w4))+' rad/s, '+dr(R.w4)],['ε<sub>3</sub>',f(Math.abs(R.e3))+' rad/s², '+dr(R.e3)],['ε<sub>4</sub>',f(Math.abs(R.e4))+' rad/s², '+dr(R.e4)]])}
+function p1(){
+ drawMech();const{I,B,C,M,E,d,s,l,pq,eq,gt}=R;
+ $('s1').innerHTML=`<h2>Thông số cho trước</h2>`+tb(['l<sub>AB</sub> (m)','l<sub>BC</sub> (m)','l<sub>BM</sub> (m)','l<sub>ME</sub> (m)','l<sub>CD</sub> (m)','l<sub>AD</sub> (m)','φ<sub>2</sub> (độ)','ω<sub>2</sub> (rad/s)','ε<sub>2</sub> (rad/s²)'],[[I.L2,I.L3,I.BM,I.ME,I.L4,I.L1,I.phi,I.dw*I.w2,I.de*I.e2]])+
+ `<p class="mut">Dấu của ω<sub>2</sub>, ε<sub>2</sub>: dương là ngược chiều kim đồng hồ.</p><h2>Toạ độ các điểm (m)</h2>`+tb(['Điểm','x','y'],[['A','0.000','0.000'],['B',f(B[0]),f(B[1])],['C',f(C[0]),f(C[1])],['D',f(I.L1),'0.000'],['M',f(M[0]),f(M[1])],['E',f(E[0]),f(E[1])]])+
+ `<h2>Phân tích cấu trúc</h2><ol>
+ <li>Cơ cấu có giá 1 và các khâu động 2, 3, 4, nên số khâu động <b>n = 3</b>.</li>
+ <li>Bốn khớp A, B, C, D đều là khớp quay (khớp thấp loại 5), nên <b>p<sub>5</sub> = 4</b>, p<sub>4</sub> = 0.</li>
+ <li>Bậc tự do: W = 3n − 2p<sub>5</sub> − p<sub>4</sub> = 3·3 − 2·4 − 0 = <b>1</b>. Cần 1 khâu dẫn: khâu 2 quay quanh A.</li>
+ <li>Tách nhóm Atxua: khâu dẫn 2 nối với giá tại A là cơ cấu loại 1. Phần còn lại là khâu 3, 4 với 3 khớp B, C, D, có W<sub>nhóm</sub> = 3·2 − 2·3 = 0, là <b>nhóm Atxua loại 2</b>.</li>
+ <li>Công thức cấu trúc: cơ cấu = khâu dẫn 2 + nhóm (3, 4).</li>
+ <li>Điều kiện Grashof: s = ${f(s,2)}, l = ${f(l,2)}, p + q = ${f(pq,2)}. Có s + l = ${f(s+l,2)} ${eq?'=':s+l<pq?'<':'>'} p + q. Kết luận: ${gt}.</li>
+ <li>Điều kiện lắp ráp: |BD| = ${f(d)} m nằm trong khoảng từ ${f(Math.abs(I.L3-I.L4),2)} đến ${f(I.L3+I.L4,2)} m.</li></ol>
+ <p class="res">Kết luận: cơ cấu phẳng 4 khâu bản lề, W = 1, xếp loại cơ cấu loại 2.</p>`;
+}
+function p23(){
+ const k=col(),{w3,w4,e3,e4,vB,vC,vM,vE,aB,aC,aM,aE,anCB,atCB,anCD,atCD,I}=R,o=[0,0];
+ const V=['Điểm','v<sub>x</sub> (m/s)','v<sub>y</sub> (m/s)','|v| (m/s)','Góc so với Ox'],A=['Điểm','a<sub>x</sub> (m/s²)','a<sub>y</sub> (m/s²)','|a| (m/s²)','Góc so với Ox'];
+ $('t2').innerHTML=`<p class="mut">v<sub>B</sub> = ω<sub>2</sub> × AB; v<sub>C</sub> = v<sub>B</sub> + v<sub>CB</sub> = v<sub>D</sub> + v<sub>CD</sub> với v<sub>D</sub> = 0; v<sub>M</sub>, v<sub>E</sub> = v<sub>B</sub> + ω<sub>3</sub> × BP.</p>`+
+ tb(['Khâu','Độ lớn (rad/s)','Chiều quay'],[['ω<sub>3</sub>',f(Math.abs(w3)),dr(w3)],['ω<sub>4</sub>',f(Math.abs(w4)),dr(w4)]])+tb(V,[vrow('B',vB),vrow('C',vC),vrow('M',vM),vrow('E',vE)])+`<p class="mut">Họa đồ vận tốc (cực p, tỉ lệ tự động): pb ⊥ AB, pc ⊥ CD, bc ⊥ BC, m nằm trên bc.</p>`;
+ poly('c2',[[o,vB,k.l2],[o,vC,k.l4],[vB,vC,k.l3],[o,vM,k.mut,1],[o,vE,k.pt],[vM,vE,k.mut,1]],[[o,'p',k.fg],[vB,'b',k.l2],[vC,'c',k.l4],[vM,'m',k.fg],[vE,'e',k.pt]]);
+ const kk=add(aB,anCB);
+ $('t3').innerHTML=`<p class="mut">a<sub>B</sub> = ε<sub>2</sub> × AB − ω<sub>2</sub>²·AB; a<sub>C</sub> = a<sub>B</sub> + a<sup>n</sup><sub>CB</sub> + a<sup>t</sup><sub>CB</sub> = a<sup>n</sup><sub>CD</sub> + a<sup>t</sup><sub>CD</sub>.</p>`+
+ tb(['Khâu','Độ lớn (rad/s²)','Chiều quay'],[['ε<sub>3</sub>',f(Math.abs(e3)),dr(e3)],['ε<sub>4</sub>',f(Math.abs(e4)),dr(e4)]])+tb(A,[vrow('B',aB),vrow('C',aC),vrow('M',aM),vrow('E',aE)])+
+ tb(['Thành phần','a<sup>n</sup><sub>CB</sub>','a<sup>t</sup><sub>CB</sub>','a<sup>n</sup><sub>CD</sub>','a<sup>t</sup><sub>CD</sub>'],[['Độ lớn (m/s²)',f(len(anCB)),f(len(atCB)),f(len(anCD)),f(len(atCD))]])+`<p class="mut">Họa đồ gia tốc (cực π, tỉ lệ tự động): πb’ = a<sub>B</sub>, b’k = a<sup>n</sup><sub>CB</sub> (song song CB), kc’ = a<sup>t</sup><sub>CB</sub> (vuông góc CB), πn = a<sup>n</sup><sub>CD</sub>, nc’ = a<sup>t</sup><sub>CD</sub> (vuông góc CD).</p>`;
+ poly('c3',[[o,aB,k.l2],[aB,kk,k.l3,1],[kk,aC,k.l3],[o,anCD,k.l4,1],[anCD,aC,k.l4],[o,aC,k.fg],[aB,aC,k.mut,1],[o,aM,k.mut,1],[o,aE,k.pt]],[[o,'π',k.fg],[aB,'b’',k.l2],[kk,'k',k.l3],[anCD,'n',k.l4],[aC,'c’',k.fg],[aM,'m’',k.fg],[aE,'e’',k.pt]]);
+}
+function render(){if(!R)return;if(cur=='phan1')p1();if(cur=='phan23')p23()}
+function update(){
+ const I={};F.forEach(([k])=>I[k]=+$(k).value);R=calc(I);
+ $('err').hidden=!!R;$('sum').innerHTML=R?sumHTML():'';document.querySelectorAll('.nb').forEach(b=>b.disabled=!R);render();
+}
+function route(r){cur=r;const m={phan1:'p1',phan23:'p23'}[r]||'home';['home','p1','p23'].forEach(i=>$(i).hidden=i!=m);scrollTo(0,0);render()}
+function go(r){try{location.hash=r}catch(e){}route(r)}
+$('form').addEventListener('input',update);
+addEventListener('hashchange',()=>route(location.hash.slice(1)));
+addEventListener('resize',render);
+preset(1);route(location.hash.slice(1));
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+[['L2','Kích thước các khâu'],['phi','Khâu dẫn 2 (AB)'],['br','Cách lắp ráp']].forEach(([k,t])=>{const h=document.createElement('h3');h.textContent=t;$(k).closest('label').before(h)});
+function sumHTML(){const t=(n,v,u,c)=>`<div class="kp" style="--c:var(--${c})"><b>${n}</b><span class="v">${f(Math.abs(v))} <small>${u}</small></span><span>${dr(v)}</span></div>`;
+ return `<div class="kps">${t('ω<sub>3</sub>',R.w3,'rad/s','l3')}${t('ω<sub>4</sub>',R.w4,'rad/s','l4')}${t('ε<sub>3</sub>',R.e3,'rad/s²','l3')}${t('ε<sub>4</sub>',R.e4,'rad/s²','l4')}</div>`+tb(['Đại lượng','Giá trị'],[['Bậc tự do W','1'],['Xếp loại (Atxua)','Cơ cấu loại 2'],['Dạng cơ cấu',R.gt]])}
+/* ---------- 3D (three.js) ---------- */
+const T3={az:.55,el:.5,r:14,w:0};
+function init3(){
+ if(T3.ok)return true;if(T3.fail)return false;
+ const c=$('c3d'),k=col();
+ try{T3.rd=new THREE.WebGLRenderer({canvas:c,antialias:true,alpha:true})}catch(e){T3.fail=1;c.outerHTML='<p class="mut">Trình duyệt không hỗ trợ WebGL hoặc không tải được three.js nên chưa hiển thị được mô hình 3D.</p>';return false}
+ const S=T3.sc=new THREE.Scene();T3.cam=new THREE.PerspectiveCamera(38,2,.1,300);T3.rd.setClearColor(0,0);
+ S.add(new THREE.AmbientLight(0xffffff,.65));const dl=new THREE.DirectionalLight(0xffffff,.85);dl.position.set(6,10,14);S.add(dl);
+ const mt=x=>new THREE.MeshStandardMaterial({color:new THREE.Color(x),roughness:.45,metalness:.25});
+ const bar=x=>{const m=new THREE.Mesh(new THREE.BoxGeometry(1,1,1),mt(x));S.add(m);return m};
+ const pin=r=>{const g=new THREE.CylinderGeometry(r,r,1,24);g.rotateX(Math.PI/2);const m=new THREE.Mesh(g,mt(k.fg));S.add(m);return m};
+ const sp=(x,r)=>{const m=new THREE.Mesh(new THREE.SphereGeometry(r,24,16),mt(x));S.add(m);return m};
+ T3.b2=bar(k.l2);T3.b3=bar(k.l3);T3.b4=bar(k.l4);T3.me=bar(k.pt);T3.base=bar(k.mut);
+ T3.pn={A:pin(.32),B:pin(.28),C:pin(.28),D:pin(.32)};T3.M=sp(k.fg,.24);T3.E=sp(k.pt,.26);
+ const lab=t=>{const q=document.createElement('canvas');q.width=q.height=128;const g=q.getContext('2d');g.font='700 84px Georgia,serif';g.textAlign='center';g.textBaseline='middle';g.fillStyle=k.fg;g.fillText(t,64,68);const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(q),depthTest:false,transparent:true}));s.scale.set(1.3,1.3,1);S.add(s);return s};
+ T3.lb={};['A','B','C','D','M','E'].forEach(n=>T3.lb[n]=lab(n));
+ const gr=new THREE.GridHelper(40,40,0x888888,0x888888);gr.rotation.x=Math.PI/2;gr.position.z=-.5;gr.material.transparent=true;gr.material.opacity=.22;S.add(gr);
+ let dg=null;
+ c.onpointerdown=e=>{dg=[e.clientX,e.clientY];c.setPointerCapture(e.pointerId)};
+ c.onpointermove=e=>{if(!dg)return;T3.az-=(e.clientX-dg[0])*.008;T3.el=Math.max(-1.45,Math.min(1.45,T3.el+(e.clientY-dg[1])*.008));dg=[e.clientX,e.clientY];draw3()};
+ c.onpointerup=c.onpointercancel=()=>{dg=null};
+ c.onwheel=e=>{e.preventDefault();T3.r*=e.deltaY>0?1.1:.9;draw3()};
+ T3.ok=1;return true}
+function pose3(P){
+ const A=[0,0],{B,C,D,M,E}=P;
+ const place=(m,p,q,w,t,z)=>{const dx=q[0]-p[0],dy=q[1]-p[1];m.position.set((p[0]+q[0])/2,(p[1]+q[1])/2,z);m.rotation.z=Math.atan2(dy,dx);m.scale.set(Math.hypot(dx,dy)+w,w,t)};
+ place(T3.b2,A,B,.5,.3,0);place(T3.b3,B,C,.5,.3,.5);place(T3.b4,D,C,.5,.3,1);place(T3.me,M,E,.3,.25,.5);
+ const pz=(m,p,a,b)=>{m.position.set(p[0],p[1],(a+b)/2);m.scale.set(1,1,b-a)};
+ pz(T3.pn.A,A,-.35,.3);pz(T3.pn.B,B,-.2,.7);pz(T3.pn.C,C,.35,1.3);pz(T3.pn.D,D,-.35,1.3);
+ T3.M.position.set(M[0],M[1],.5);T3.E.position.set(E[0],E[1],.5);
+ T3.base.position.set(D[0]/2,0,-.25);T3.base.scale.set(D[0]+2.4,1.4,.2);
+ [['A',A],['B',B],['C',C],['D',D],['M',M],['E',E]].forEach(([n,p])=>T3.lb[n].position.set(p[0],p[1]+.75,1.7))}
+function fit3(P){const pts=[[0,0],P.B,P.C,P.D,P.M,P.E],xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]),x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);T3.tg=new THREE.Vector3((x0+x1)/2,(y0+y1)/2,.5);T3.r=Math.max(x1-x0,y1-y0,4)*1.9}
+function draw3(){
+ const c=$('c3d'),w=c.parentElement.clientWidth-36||600,h=440;
+ if(T3.w!=w){T3.rd.setPixelRatio(devicePixelRatio||1);T3.rd.setSize(w,h,false);c.style.height=h+'px';T3.cam.aspect=w/h;T3.cam.updateProjectionMatrix();T3.w=w}
+ const{az,el,r,tg}=T3;T3.cam.position.set(tg.x+r*Math.cos(el)*Math.sin(az),tg.y+r*Math.sin(el),tg.z+r*Math.cos(el)*Math.cos(az));T3.cam.lookAt(tg);T3.rd.render(T3.sc,T3.cam)}
+function reset3(){if(!T3.ok)return;fit3(R);T3.az=.55;T3.el=.5;draw3()}
+function stop3(){T3.sim=false;$('simb').textContent='Chạy mô phỏng';$('ph').textContent=''}
+function sim3(){
+ if(!T3.ok)return;if(T3.sim){stop3();pose3(R);draw3();return}
+ T3.sim=true;T3.R0=R;$('simb').textContent='Dừng mô phỏng';
+ const t0=performance.now(),ph0=R.I.phi,dir=R.I.dw;let prev=R.C;
+ const loop=t=>{
+  if(!T3.sim)return;if(cur!='phan1'||R!==T3.R0){stop3();return}
+  const ph=ph0+dir*(t-t0)*.09,Ps=[1,-1].map(b=>calc({...R.I,phi:ph,br:b})).filter(Boolean);
+  if(Ps.length){const P=Ps.reduce((a,b)=>len(sub(a.C,prev))<=len(sub(b.C,prev))?a:b);prev=P.C;pose3(P);$('ph').textContent='φ2 = '+f(((ph%360)+360)%360,1)+'°.';draw3()}
+  requestAnimationFrame(loop)};
+ requestAnimationFrame(loop)}
+const _p1=p1;
+p1=function(){_p1();if(T3.sim&&T3.R0!==R)stop3();if(!init3())return;if(!T3.sim){fit3(R);pose3(R)}draw3()};
+update();
+</script>
+</body>
+</html>
