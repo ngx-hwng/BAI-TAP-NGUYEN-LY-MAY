@@ -7,4 +7,4 @@
 ---
 ## [LINK WEB GIẢI BÀI](https://ngx-hwng.github.io/BAI-TAP-NGUYEN-LY-MAY/)  
 ## [FILE MÃ NGUỒN](index.html)
-## [GIẢI TAY THAM KHẢO](https://github.com/ngx-hwng/BAI-TAP-NGUYEN-LY-MAY/blob/main/File%20gi%E1%BA%A3i%20tay.pdf)
+## [GIẢI TAY THAM KHẢO](https://github.com/ngx-hwng/BAI-TAP-NGUYEN-LY-MAY/blob/main/Giaitay.pdf)
