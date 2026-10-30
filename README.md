@@ -8,3 +8,4 @@
 ## [LINK WEB GIẢI BÀI](https://ngx-hwng.github.io/BAI-TAP-NGUYEN-LY-MAY/)  
 ## [FILE MÃ NGUỒN](index.html)
 ## [GIẢI TAY THAM KHẢO](https://github.com/ngx-hwng/BAI-TAP-NGUYEN-LY-MAY/blob/main/Giaitay.pdf)
+## [SLID THUYẾT TRÌNH](https://github.com/ngx-hwng/BAI-TAP-NGUYEN-LY-MAY/blob/main/silde%20tt.pdf)
